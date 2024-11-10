@@ -1,1 +1,74 @@
-<p>survey works!</p>
+<div class="survey-main">
+  <form [formGroup]="form" class="form">
+    <div formArrayName="questions">
+      <div
+        *ngFor="let q of getQuestions().controls; let i = index"
+        class="question-card"
+      >
+        <ng-container [formGroupName]="i">
+          <div>
+            <input
+              type="text"
+              placeholder="Question ID"
+              formControlName="id"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Your question"
+              formControlName="label"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Question description"
+              formControlName="description"
+            />
+          </div>
+          <div>
+            <span>Is Required: </span>
+            <input type="checkbox" formControlName="isRequired" />
+          </div>
+          <div>
+            <span>Question type: </span>
+            <select formControlName="type">
+              <option value="single">Single</option>
+              <option value="multi">Multi</option>
+              <option value="text">Text</option>
+            </select>
+          </div>
+          @if(getQuestions().at(i).value?.type === 'single' || getQuestions().at(i).value?.type === 'multi') {
+            <ng-container formArrayName="options">
+              <button (click)="onNewOptionClicked(i)">Add Option</button>
+              <ng-container
+                *ngFor="
+                  let option of getQuestionOptions(i).controls;
+                  let o = index
+                "
+              >
+                <div class="option">
+                  <input
+                    type="text"
+                    [formControlName]="o"
+                    placeholder="Option Text"
+                  />
+                  <button (click)="deleteOption(i, o)">Delete</button>
+                </div>
+              </ng-container>
+            </ng-container>
+          } @if(getQuestions().at(i).value?.type === 'text') {
+            <input type="text" formControlName="textAnswer" />
+          }
+        </ng-container>
+      </div>
+    </div>
+  </form>
+
+  <div class="question-card actions">
+    <button (click)="onNewQuestionClicked()">Add New Question</button>
+    <button (click)="onSubmit()">Submit</button>
+  </div>
+</div>

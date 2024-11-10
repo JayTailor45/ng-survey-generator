@@ -1,0 +1,31 @@
+.survey-main {
+    position: relative;
+}
+
+.form {
+    height: calc(100% - 46px);
+    overflow-y: scroll;
+}
+
+.question-card {
+    border: 1px solid grey;
+    padding: 24px 18px;
+    margin: 16px 16px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 1px 1px;
+}
+
+.actions {
+    height: 28px;
+    position: sticky;
+    bottom: 22px;
+    left: 48px;
+    background-color: #fff;
+
+    width: calc(100vw - 194px);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 28px;
+}
