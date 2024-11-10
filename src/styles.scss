@@ -2,3 +2,43 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+    position: relative;
+}
+
+nav.top-nav {
+    width: calc(100vw - 194px);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px;
+    margin: 16px 16px;
+
+    border: 1px solid grey;
+    border-radius: 8px;
+
+    box-shadow: 4px 4px 1px 1px;
+
+    background-color: #fff;
+    z-index: 2;
+
+    position: sticky;
+    top: 22px;
+    left: 48px;
+
+    a {
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    a.active {
+        border-radius: 4px;
+        background-color: green;
+        font-weight: bold;
+        color: white;
+        padding: 8px 6px;
+    }
+}
