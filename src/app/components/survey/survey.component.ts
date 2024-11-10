@@ -11,6 +11,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import { SurveyService } from '../../services/survey.service';
 import { IQuestion } from '../../models/question.model';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-survey',
@@ -34,7 +35,7 @@ export class SurveyComponent implements OnInit {
   }
 
   loadSavedData() {
-    this.surveyService.getSurveyData().subscribe({
+    this.surveyService.survey.pipe(first()).subscribe({
       next: (response) => {
         (response || []).forEach((question) => {
           const questionGroup = this.createQuestionGroupControl();
@@ -75,7 +76,7 @@ export class SurveyComponent implements OnInit {
       isRequired: this.fb.control(false),
       type: this.fb.control('text', [Validators.required]),
       options: this.fb.array([]),
-      textAnswer: this.fb.control(''),
+      textAnswer: this.fb.control<string[] | string | null>(null),
     });
     questionFormGroup.controls.id.patchValue(uuid());
 
@@ -104,6 +105,7 @@ export class SurveyComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    console.log(this.form.get('questions')?.value);
+    this.surveyService.setSurveyData(this.form.get('questions')?.value);
   }
 }

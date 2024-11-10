@@ -1,1 +1,54 @@
-<p>fill-survey works!</p>
+<div class="survey-main">
+  <form [formGroup]="form" class="form">
+    <div formArrayName="questions">
+      <div
+        *ngFor="let q of getQuestions().controls; let i = index"
+        class="question-card"
+      >
+        <ng-container [formGroupName]="i">
+          <div>
+            {{ i + 1 }}. {{ q.value?.label }}
+            <span class="mouse-pointer bold" [title]="q.value?.description">(Info)</span>
+          </div>
+          <div>
+            @if(getQuestions().at(i).value?.type === 'single') {
+                <select
+                    formControlName="textAnswer"
+                    [required]="getQuestions().at(i).value?.isRequired"
+                    >
+                    @for (option of getQuestions().at(i).value?.options; track $index) {
+                        <option [value]="option">{{ option }}</option>
+                    }
+                </select>
+            }
+            @if(getQuestions().at(i).value?.type === 'multi') {
+                <select
+                    formControlName="textAnswer"
+                    [multiple]="true"
+                    [required]="getQuestions().at(i).value?.isRequired"
+                    >
+                    @for (option of getQuestions().at(i).value?.options; track $index) {
+                        <option [value]="option">{{ option }}</option>
+                    }
+                </select>
+            } 
+            @if(getQuestions().at(i).value?.type === 'text') {
+                <input
+                    type="text"
+                    formControlName="textAnswer"
+                    [required]="getQuestions().at(i).value?.isRequired"
+                />
+            }
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+
+  <div class="question-card actions">
+    <div></div>
+    @if (form) {
+        <button [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+    }
+  </div>
+</div>

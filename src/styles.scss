@@ -32,13 +32,17 @@ nav.top-nav {
     a {
         text-decoration: none;
         text-transform: uppercase;
+        font-weight: bold;
+            padding: 8px 6px;
     }
 
     a.active {
         border-radius: 4px;
         background-color: green;
-        font-weight: bold;
         color: white;
-        padding: 8px 6px;
     }
+}
+
+.mouse-pointer {
+    cursor: pointer;
 }

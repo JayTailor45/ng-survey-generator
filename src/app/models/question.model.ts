@@ -5,6 +5,7 @@ export type IQuestion = {
   isRequired: boolean | null | undefined;
   type: QuestionType | undefined;
   options: string[];
+  textAnswer: string[] | string | null;
 };
 
 export type QuestionType = 'text' | 'single' | 'multi';
